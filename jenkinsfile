@@ -1,21 +1,13 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Сборка') {
-            steps {
-                echo 'Выполняем команды для сборки'
-            }
-        }
-        stage('Тестирование') {
-            steps {
-                echo 'Тестируем нашу сборку'
-            }
-        }
-        stage('Развертывание') {
-            steps {
-                echo 'Переносим код в рабочую среду или создаем артефакт'
-            }
-        }
+  agent any
+  parameters {
+    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+  }
+  stages {
+    stage('Example') {
+      steps {
+        git branch: "${params.BRANCH}", url: 'https://github.com/Alex-Sergeev/jenkins-pipe-test.git'
+      }
     }
+  }
 }
