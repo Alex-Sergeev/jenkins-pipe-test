@@ -1,12 +1,15 @@
 pipeline {
   agent any
-  parameters {
-    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
-  }
   stages {
     stage('Example') {
       steps {
         git branch: "${params.BRANCH}", url: 'https://github.com/Alex-Sergeev/jenkins-pipe-test.git'
+      }
+    }
+	
+	stage('Test') {
+      steps {
+        sh "ls -la"
       }
     }
   }
